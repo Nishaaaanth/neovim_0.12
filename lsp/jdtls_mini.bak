@@ -1,0 +1,44 @@
+local root_markers = {
+    'build.xml',        -- Ant
+    'pom.xml',          -- Maven
+    'build.gradle',     -- Gradle
+    'build.gradle.kts', -- Gradle
+}
+
+local project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+local workspace_dir = vim.fn.stdpath("cache") .. "/jdtls" .. "/workspace" .. project_name
+
+return {
+    cmd = {
+        'jdtls',
+        '-data',
+        workspace_dir,
+    },
+    filetypes = { 'java' },
+    root_markers = root_markers,
+    settings = {
+        java = {
+            eclipse = {
+                downloadSources = true
+            },
+            maven = {
+                downloadSources = true
+            },
+            implementationsCodeLens = {
+                enabled = true
+            },
+            contentProvider = {
+                preferred = "fernflower"
+            },
+            configuration = {
+                runtimes = {
+                    {
+                        name = "JavaSE-21",
+                        path = "/usr/lib/jvm/java-21-openjdk-amd64",
+                        default = true
+                    }
+                }
+            }
+        }
+    }
+}
