@@ -1,5 +1,6 @@
 local terminal_group = vim.api.nvim_create_augroup("Terminal", { clear = true })
 local yank_group = vim.api.nvim_create_augroup("Yank", { clear = true })
+local lsp_group = vim.api.nvim_create_augroup("Lsp", { clear = true })
 local colorscheme_group = vim.api.nvim_create_augroup("Colorscheme", { clear = true })
 
 local function set_dark_bg()
@@ -9,6 +10,9 @@ local function set_dark_bg()
     vim.api.nvim_set_hl(0, "NeoTreeNormal", { bg = "#000000" })
     vim.api.nvim_set_hl(0, "NeoTreeNormalNC", { bg = "#000000" })
     vim.api.nvim_set_hl(0, "NeoTreeEndOfBuffer", { bg = "#000000" })
+    vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })
+    vim.api.nvim_set_hl(0, "FloatBorder", { bg = "#000000", fg = "#ffffff" })
+    vim.api.nvim_set_hl(0, "", { bg = "#000000", fg = "#ffffff" })
 end
 set_dark_bg()
 
@@ -32,6 +36,33 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
     group = yank_group,
     callback = function()
         vim.highlight.on_yank()
+    end
+})
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+    desc = "Enable on file change",
+    pattern = 'java',
+    group = lsp_group,
+    callback = function()
+        vim.lsp.enable('jdtls')
+    end
+})
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+    desc = "Enable on file change",
+    pattern = 'lua',
+    group = lsp_group,
+    callback = function()
+        vim.lsp.enable('lua_ls')
+    end
+})
+
+vim.api.nvim_create_autocmd({ "FileType" }, {
+    desc = "Enable on file change",
+    pattern = 'xml',
+    group = lsp_group,
+    callback = function()
+        vim.lsp.enable('lemminx')
     end
 })
 
