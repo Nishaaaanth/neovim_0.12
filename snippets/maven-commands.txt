@@ -1,0 +1,5 @@
+-- quiet basic maven project
+mvn -q exec:java
+
+-- quiet springboot project + maven
+mvn -q spring-boot:run

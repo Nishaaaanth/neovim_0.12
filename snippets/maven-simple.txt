@@ -1,0 +1,5 @@
+mvn archetype:generate \
+  -DgroupId=com.example \
+  -DartifactId=my-basic-app \
+  -DarchetypeArtifactId=maven-archetype-simple \
+  -DinteractiveMode=false
