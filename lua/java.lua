@@ -1,0 +1,31 @@
+-- local jdtls = require("jdtls")
+--
+-- local root_markers = { "mvnw", "gradlew", ".git" }
+-- local root_dir = require("jdtls.setup").find_root(root_markers)
+--
+-- local project_name = vim.fn.fnamemodify(root_dir, ":p:h:t")
+-- local workspace_dir = vim.fn.stdpath("data") .. "/jdtls-workspace/" .. project_name
+--
+-- local config = {
+--     cmd = { "/home/nishanth/.local/share/nvim/mason/bin/jdtls" },
+--     root_dir = root_dir,
+--     workspace_dir = workspace_dir,
+--     setings = {
+--         java = {
+--             configuration = {
+--                 runtimes = {
+--                     {
+--                         name = "JavaSE-17",
+--                         path = "/usr/lib/jvm/java-17-openjdk-amd64",
+--                         default = true
+--                     },
+--                 }
+--             }
+--         }
+--     },
+--     init_options = {
+--         extendedClientCapabilities = jdtls.extendedClientCapabilities
+--     },
+-- }
+--
+-- jdtls.start_or_attach(config)

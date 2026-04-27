@@ -34,6 +34,28 @@ for _, color in pairs(colorschemes) do
 end
 
 require("mason").setup({})
+
+-- Update the below in ~/.config/ripgrep/config file and set the RIPGREP_CONFIG_PATH
+-- --hidden
+-- --no-ignore
+-- --glob
+-- --!**/.git/*
+require("mini.pick").setup({
+	source = {
+		files = {
+			hidden = true,
+		},
+	},
+	mappings = {
+		toggle_info = "I",
+		toggle_preview = "K",
+		move_down = "<Tab>",
+		move_up = "<S-Tab>",
+	},
+})
+
+
+
 -- require("java").setup {
 --     checks = {
 --         nvim_version = true,
@@ -75,24 +97,6 @@ require("mason").setup({})
 --     },
 -- }
 
--- Update the below in ~/.config/ripgrep/config file and set the RIPGREP_CONFIG_PATH
--- --hidden
--- --no-ignore
--- --glob
--- --!**/.git/*
-require("mini.pick").setup({
-	source = {
-		files = {
-			hidden = true,
-		},
-	},
-	mappings = {
-		toggle_info = "I",
-		toggle_preview = "K",
-		move_down = "<Tab>",
-		move_up = "<S-Tab>",
-	},
-})
 
 -- require("conform").setup({
 -- 	formatters_by_ft = {

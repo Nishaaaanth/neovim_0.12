@@ -53,41 +53,13 @@ vim.api.nvim_create_autocmd({ "LspAttach" }, {
     end
 })
 
--- vim.api.nvim_create_autocmd({ "FileType" }, {
---     desc = "Enable on file change",
---     pattern = 'java',
---     group = lsp_group,
---     callback = function()
---         vim.lsp.enable('jdtls')
---     end
--- })
---
--- vim.api.nvim_create_autocmd({ "FileType" }, {
---     desc = "Enable on file change",
---     pattern = 'json',
---     group = lsp_group,
---     callback = function()
---         vim.lsp.enable('jsonls')
---     end
--- })
---
--- vim.api.nvim_create_autocmd({ "FileType" }, {
---     desc = "Enable on file change",
---     pattern = 'lua',
---     group = lsp_group,
---     callback = function()
---         vim.lsp.enable('lua_ls')
---     end
--- })
---
--- vim.api.nvim_create_autocmd({ "FileType" }, {
---     desc = "Enable on file change",
---     pattern = 'xml',
---     group = lsp_group,
---     callback = function()
---         vim.lsp.enable('lemminx')
---     end
--- })
+vim.api.nvim_create_autocmd("FileType", {
+    pattern = "java",
+    group = lsp_group,
+    callback = function()
+        require("java")
+    end
+})
 
 vim.api.nvim_create_autocmd('LspAttach', {
     group = vim.api.nvim_create_augroup('my.lsp', {}),

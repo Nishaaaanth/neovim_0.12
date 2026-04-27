@@ -1,3 +1,20 @@
+-- Functions
+local function get_project_root()
+    local markers = { ".git", "pom.xml", "package.json" }
+    local path = vim.fn.expand("%:p:h")
+
+    while path ~= "/" do
+        for _, marker in ipairs(markers) do
+            if vim.fn.glob(path .. "/" .. marker) ~= "" then
+                return path
+            end
+        end
+        path = vim.fn.fnamemodify(path, ":h")
+    end
+
+    return vim.fn.getcwd()
+end
+
 -- Generals
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -24,8 +41,8 @@ vim.keymap.set("n", "<M-t>", "<CMD>tabnew<CR>", {})
 vim.keymap.set("n", "<M-n>", "<CMD>tabNext<CR>", {})
 
 -- Windows
-vim.keymap.set("n", "<M-,>", "<C-w>3>", {})
-vim.keymap.set("n", "<M-.>", "<C-w>3<", {})
+vim.keymap.set("n", "<M-,>", "<C-w>3<", {})
+vim.keymap.set("n", "<M-.>", "<C-w>3>", {})
 vim.keymap.set("n", "<M-=>", "<C-w>3+", {})
 vim.keymap.set("n", "<M-->", "<C-w>3-", {})
 
@@ -54,6 +71,15 @@ vim.keymap.set("n", "<leader>sc", function()
         },
     })
 end, { desc = "[S]earch [C]onfig" })
+vim.keymap.set("n", "<leader><leader>", function()
+    local target_dir = get_project_root()
+    MiniPick.builtin.files(nil, {
+        source = {
+            cwd = target_dir,
+            name = "project files",
+        },
+    })
+end, { desc = "Project Files" })
 
 -- Lsp
 vim.keymap.set("n", "<leader>dn", function()
@@ -85,14 +111,14 @@ vim.keymap.set("i", "<S-Tab>", function()
     return vim.fn.pumvisible() == 1 and "<C-p>" or "<C-h>"
 end, { expr = true })
 
--- vim.keymap.set('i', '<Enter>', function()
---     if vim.fn.pumvisible() == 1 then
---         if vim.fn.complete_info({ "selected" }).selected ~= -1 then
---             return '<C-y>'
---         end
---     end
---     return '<CR>'
--- end, { expr = true, replace_keycodes = true })
+vim.keymap.set('i', '<CR>', function()
+    if vim.fn.pumvisible() == 1 then
+        return vim.api.nvim_replace_termcodes('<C-y>', true, true, true)
+    else
+        return vim.api.nvim_replace_termcodes('<CR>', true, true, true)
+    end
+end, { expr = true }
+)
 
 -- Snippets
 vim.keymap.set(
